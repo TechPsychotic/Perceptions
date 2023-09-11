@@ -243,3 +243,47 @@ document.addEventListener("DOMContentLoaded", function(event) {
   };
   
 });
+const imageSlider = document.querySelector(".image-slider");
+let slideIndex = 0;
+
+function nextSlide() {
+  slideIndex++;
+  if (slideIndex >= imageSlider.children.length) {
+    slideIndex = 0;
+  }
+  updateSlider();
+}
+
+function prevSlide() {
+  slideIndex--;
+  if (slideIndex < 0) {
+    slideIndex = imageSlider.children.length - 1;
+  }
+  updateSlider();
+}
+
+function updateSlider() {
+  const translateX = -slideIndex * 100; // 100% per image
+  imageSlider.style.transform = `translateX(${translateX}%)`;
+}
+
+// Optionally, you can add buttons or controls for next and previous slides
+const nextButton = document.querySelector(".next-button");
+const prevButton = document.querySelector(".prev-button");
+
+nextButton.addEventListener("click", nextSlide);
+prevButton.addEventListener("click", prevSlide);
+
+// Automatically advance to the next slide after a certain time (e.g., every 3 seconds)
+setInterval(nextSlide, 3000);
+// Initialize Swiper
+var swiper = new Swiper('.swiper-container', {
+	slidesPerView: 1, // Number of slides per view
+	spaceBetween: 10, // Space between slides (adjust as needed)
+	navigation: {
+	  nextEl: '.swiper-button-next', // Next slide button class
+	  prevEl: '.swiper-button-prev', // Previous slide button class
+	},
+	loop: true, // Enable looping
+  });
+  
